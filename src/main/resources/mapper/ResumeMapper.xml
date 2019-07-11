@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="www.rsyrch.com.resume.dao.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="www.rsyrch.com.resume.pojo.Resume" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="userID" property="userid" jdbcType="INTEGER" />
+    <result column="educationID" property="educationid" jdbcType="INTEGER" />
+    <result column="trainingID" property="trainingid" jdbcType="INTEGER" />
+    <result column="positionID" property="positionid" jdbcType="INTEGER" />
+    <result column="workexperienceID" property="workexperienceid" jdbcType="INTEGER" />
+    <result column="applyPosition" property="applyposition" jdbcType="VARCHAR" />
+    <result column="personalAdvantage" property="personaladvantage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, userID, educationID, trainingID, positionID, workexperienceID, applyPosition, 
+    personalAdvantage
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="www.rsyrch.com.resume.pojo.ResumeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resume
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="www.rsyrch.com.resume.pojo.ResumeExample" >
+    delete from resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="www.rsyrch.com.resume.pojo.Resume" >
+    insert into resume (ID, userID, educationID, 
+      trainingID, positionID, workexperienceID, 
+      applyPosition, personalAdvantage)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{educationid,jdbcType=INTEGER}, 
+      #{trainingid,jdbcType=INTEGER}, #{positionid,jdbcType=INTEGER}, #{workexperienceid,jdbcType=INTEGER}, 
+      #{applyposition,jdbcType=VARCHAR}, #{personaladvantage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="www.rsyrch.com.resume.pojo.Resume" >
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="educationid != null" >
+        educationID,
+      </if>
+      <if test="trainingid != null" >
+        trainingID,
+      </if>
+      <if test="positionid != null" >
+        positionID,
+      </if>
+      <if test="workexperienceid != null" >
+        workexperienceID,
+      </if>
+      <if test="applyposition != null" >
+        applyPosition,
+      </if>
+      <if test="personaladvantage != null" >
+        personalAdvantage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="educationid != null" >
+        #{educationid,jdbcType=INTEGER},
+      </if>
+      <if test="trainingid != null" >
+        #{trainingid,jdbcType=INTEGER},
+      </if>
+      <if test="positionid != null" >
+        #{positionid,jdbcType=INTEGER},
+      </if>
+      <if test="workexperienceid != null" >
+        #{workexperienceid,jdbcType=INTEGER},
+      </if>
+      <if test="applyposition != null" >
+        #{applyposition,jdbcType=VARCHAR},
+      </if>
+      <if test="personaladvantage != null" >
+        #{personaladvantage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="www.rsyrch.com.resume.pojo.ResumeExample" resultType="java.lang.Integer" >
+    select count(*) from resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resume
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.educationid != null" >
+        educationID = #{record.educationid,jdbcType=INTEGER},
+      </if>
+      <if test="record.trainingid != null" >
+        trainingID = #{record.trainingid,jdbcType=INTEGER},
+      </if>
+      <if test="record.positionid != null" >
+        positionID = #{record.positionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.workexperienceid != null" >
+        workexperienceID = #{record.workexperienceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyposition != null" >
+        applyPosition = #{record.applyposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personaladvantage != null" >
+        personalAdvantage = #{record.personaladvantage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resume
+    set ID = #{record.id,jdbcType=INTEGER},
+      userID = #{record.userid,jdbcType=INTEGER},
+      educationID = #{record.educationid,jdbcType=INTEGER},
+      trainingID = #{record.trainingid,jdbcType=INTEGER},
+      positionID = #{record.positionid,jdbcType=INTEGER},
+      workexperienceID = #{record.workexperienceid,jdbcType=INTEGER},
+      applyPosition = #{record.applyposition,jdbcType=VARCHAR},
+      personalAdvantage = #{record.personaladvantage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="www.rsyrch.com.resume.pojo.Resume" >
+    update resume
+    <set >
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="educationid != null" >
+        educationID = #{educationid,jdbcType=INTEGER},
+      </if>
+      <if test="trainingid != null" >
+        trainingID = #{trainingid,jdbcType=INTEGER},
+      </if>
+      <if test="positionid != null" >
+        positionID = #{positionid,jdbcType=INTEGER},
+      </if>
+      <if test="workexperienceid != null" >
+        workexperienceID = #{workexperienceid,jdbcType=INTEGER},
+      </if>
+      <if test="applyposition != null" >
+        applyPosition = #{applyposition,jdbcType=VARCHAR},
+      </if>
+      <if test="personaladvantage != null" >
+        personalAdvantage = #{personaladvantage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="www.rsyrch.com.resume.pojo.Resume" >
+    update resume
+    set userID = #{userid,jdbcType=INTEGER},
+      educationID = #{educationid,jdbcType=INTEGER},
+      trainingID = #{trainingid,jdbcType=INTEGER},
+      positionID = #{positionid,jdbcType=INTEGER},
+      workexperienceID = #{workexperienceid,jdbcType=INTEGER},
+      applyPosition = #{applyposition,jdbcType=VARCHAR},
+      personalAdvantage = #{personaladvantage,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
