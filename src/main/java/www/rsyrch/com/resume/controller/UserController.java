@@ -78,4 +78,17 @@ public class UserController {
             return ResultUtil.error("账号已被注册");
         }
     }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public Result changePassword(@RequestParam Map<String, Object> paramMap) {
+        String oldPassword = paramMap.get("oldPassword").toString();
+        String newPassword = paramMap.get("newPassword").toString();
+        if(StringUtils.isBlank(oldPassword)) {
+            return ResultUtil.error("原密码为空");
+        }
+        if(StringUtils.isBlank(newPassword)) {
+            return ResultUtil.error("新密码为空");
+        }
+        return null;
+    }
 }
