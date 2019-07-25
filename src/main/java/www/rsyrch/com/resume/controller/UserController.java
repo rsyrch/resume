@@ -79,6 +79,12 @@ public class UserController {
         }
     }
 
+    /*
+     * @Description:
+     * @Date: 2019/7/25 11:05
+     * @Param: [paramMap]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public Result changePassword(@RequestParam Map<String, Object> paramMap) {
         String oldPassword = paramMap.get("oldPassword").toString();
@@ -89,6 +95,7 @@ public class UserController {
         if(StringUtils.isBlank(newPassword)) {
             return ResultUtil.error("新密码为空");
         }
+
         return null;
     }
 }

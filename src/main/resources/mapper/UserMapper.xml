@@ -374,4 +374,10 @@
     for user
     where accoumtnumber = #{account}
   </select>
+
+  <update id="changePassword">
+    update user
+    set password = #{newPassword}
+    where id = #{id} and password = #{oldPassword}
+  </update>
 </mapper>

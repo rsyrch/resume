@@ -33,4 +33,7 @@ public interface UserMapper {
 
     // 根据用户账号查询用户
     User selectUserByAccount(String account);
+
+    // 修改用户密码
+    int changePassword(@Param("id") int id, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
 }

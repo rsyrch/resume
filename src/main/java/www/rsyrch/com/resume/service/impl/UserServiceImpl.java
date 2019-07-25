@@ -44,4 +44,15 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectUserByAccount(account);
         return user;
     }
+
+    /*
+     * @Description:
+     * @Date: 2019/7/25 11:10
+     * @Param: [oldPassword, newPassword]
+     * @Return: www.rsyrch.com.resume.pojo.User
+     **/
+    @Override
+    public int changePassword(int id, String oldPassword, String newPassword) {
+        return userMapper.changePassword(id, oldPassword, newPassword);
+    }
 }
