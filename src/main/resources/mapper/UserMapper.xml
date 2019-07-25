@@ -380,4 +380,12 @@
     set password = #{newPassword}
     where id = #{id} and password = #{oldPassword}
   </update>
+
+  <select id="userLogin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    for user
+    where account = #{account} and password = #{password}
+  </select>
 </mapper>
+

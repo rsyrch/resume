@@ -7,4 +7,5 @@ public interface UserService {
     int register(String account, String password);
     User checkAccoutStatus(String account);
     int changePassword(int id, String oldPassword, String newPassword);
+    User login(String account, String password);
 }

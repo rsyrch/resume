@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /*
-     * @Description:
+     * @Description: 修改密码
      * @Date: 2019/7/25 11:10
      * @Param: [oldPassword, newPassword]
      * @Return: www.rsyrch.com.resume.pojo.User
@@ -54,5 +54,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int changePassword(int id, String oldPassword, String newPassword) {
         return userMapper.changePassword(id, oldPassword, newPassword);
+    }
+
+    public User login(String account, String password) {
+        User user = userMapper.userLogin(account, password);
+        return user;
     }
 }

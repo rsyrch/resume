@@ -36,4 +36,7 @@ public interface UserMapper {
 
     // 修改用户密码
     int changePassword(@Param("id") int id, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
+
+    // 登录
+    User userLogin(@Param("account") String account, @Param("password") String password);
 }

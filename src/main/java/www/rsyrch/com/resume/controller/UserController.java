@@ -10,6 +10,10 @@ import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
 import www.rsyrch.com.resume.utils.code.UserCode;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.nio.channels.SeekableByteChannel;
 import java.util.Map;
 
 @RestController
@@ -49,14 +53,21 @@ public class UserController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result login(@RequestParam Map<String, Object> paramMap) {
+    public Result login(@RequestParam Map<String, Object> paramMap, HttpSession session) {
         String account = paramMap.get("account").toString();
         String password = paramMap.get("password").toString();
-        String phone = paramMap.get("phone").toString();
         if(!(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password))) {
             return ResultUtil.error(UserCode.PARAM_EXCEPTION.getCode(), UserCode.PARAM_EXCEPTION.getDesc());
         }
-        return null;
+        User user = userService.login(account, password);
+        if(user != null) {
+            // 登陆成功,用户对象放入session
+            session.setAttribute("userSession", user);
+            return ResultUtil.success(user.getId());
+        }
+        else {
+            return ResultUtil.error(UserCode.USER_PASSWORD_ERROR.getCode(), UserCode.USER_PASSWORD_ERROR.getDesc());
+        }
     }
 
     /*
@@ -72,7 +83,7 @@ public class UserController {
         }
         User user = userService.checkAccoutStatus(account);
         if(user == null) {
-            return ResultUtil.success(user);
+            return ResultUtil.success();
         }
         else {
             return ResultUtil.error("账号已被注册");
@@ -80,13 +91,13 @@ public class UserController {
     }
 
     /*
-     * @Description:
+     * @Description: 修改密码
      * @Date: 2019/7/25 11:05
      * @Param: [paramMap]
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public Result changePassword(@RequestParam Map<String, Object> paramMap) {
+    public Result changePassword(@RequestParam Map<String, Object> paramMap, HttpSession session) {
         String oldPassword = paramMap.get("oldPassword").toString();
         String newPassword = paramMap.get("newPassword").toString();
         if(StringUtils.isBlank(oldPassword)) {
@@ -95,7 +106,16 @@ public class UserController {
         if(StringUtils.isBlank(newPassword)) {
             return ResultUtil.error("新密码为空");
         }
+        Object object = session.getAttribute(UserCode.USER_SESSION.getDesc());
+        if(object == null) {
+            // 用户未登录或登录超时
+            return ResultUtil.error(UserCode.USER_NOTLOGIN_OR_TIMEOUT.getCode(), UserCode.USER_NOTLOGIN_OR_TIMEOUT.getDesc());
+        }
+        User user = (User)object;
+        int status = userService.changePassword(user.getId(), oldPassword, newPassword);
+        if(status > 0) {
 
+        }
         return null;
     }
 }

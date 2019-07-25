@@ -2,10 +2,14 @@ package www.rsyrch.com.resume.utils.code;
 
 public enum UserCode {
 
+    USER_SESSION(2000, "userSession"),
     ADD_UER_ERROR(2001, "注册失败"),
-    USER_PASSWORD_ERROR(2002, "用户名或密码失败"),
+    USER_PASSWORD_ERROR(2002, "用户名或密码错误"),
     PARAM_EXCEPTION(2003, "参数异常"),
-    ACCOUNT_EXIST(2004, "账号已存在")
+    ACCOUNT_EXIST(2004, "账号已被注册"),
+    OLD_PASSWORD_ERROR(2005, "原密码错误"),
+    NEW_PASSWORD_NULL(2006,"密码为空"),
+    USER_NOTLOGIN_OR_TIMEOUT(2007, "用户未登录或登录超时")
     ;
 
     private int code;
