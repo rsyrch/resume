@@ -9,11 +9,7 @@ import www.rsyrch.com.resume.service.UserService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
 import www.rsyrch.com.resume.utils.code.UserCode;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.nio.channels.SeekableByteChannel;
 import java.util.Map;
 
 @RestController
@@ -62,7 +58,7 @@ public class UserController {
         User user = userService.login(account, password);
         if(user != null) {
             // 登陆成功,用户对象放入session
-            session.setAttribute("userSession", user);
+            session.setAttribute(UserCode.USER_SESSION.getDesc(), user);
             return ResultUtil.success(user.getId());
         }
         else {
@@ -101,10 +97,10 @@ public class UserController {
         String oldPassword = paramMap.get("oldPassword").toString();
         String newPassword = paramMap.get("newPassword").toString();
         if(StringUtils.isBlank(oldPassword)) {
-            return ResultUtil.error("原密码为空");
+            return ResultUtil.error(UserCode.OLD_PASSWORD_NULL.getCode(), UserCode.OLD_PASSWORD_NULL.getDesc());
         }
         if(StringUtils.isBlank(newPassword)) {
-            return ResultUtil.error("新密码为空");
+            return ResultUtil.error(UserCode.NEW_PASSWORD_NULL.getCode(), UserCode.NEW_PASSWORD_NULL.getDesc());
         }
         Object object = session.getAttribute(UserCode.USER_SESSION.getDesc());
         if(object == null) {
@@ -114,8 +110,11 @@ public class UserController {
         User user = (User)object;
         int status = userService.changePassword(user.getId(), oldPassword, newPassword);
         if(status > 0) {
-
+            // 密码修改成功
+            return ResultUtil.success();
         }
-        return null;
+        else {
+            return ResultUtil.error(UserCode.CHANGE_PASSWORD_ERROR.getCode(), UserCode.CHANGE_PASSWORD_ERROR.getDesc());
+        }
     }
 }

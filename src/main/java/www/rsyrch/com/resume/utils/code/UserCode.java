@@ -8,8 +8,10 @@ public enum UserCode {
     PARAM_EXCEPTION(2003, "参数异常"),
     ACCOUNT_EXIST(2004, "账号已被注册"),
     OLD_PASSWORD_ERROR(2005, "原密码错误"),
-    NEW_PASSWORD_NULL(2006,"密码为空"),
-    USER_NOTLOGIN_OR_TIMEOUT(2007, "用户未登录或登录超时")
+    OLD_PASSWORD_NULL(2009, "新密码为空"),
+    NEW_PASSWORD_NULL(2006,"新密码为空"),
+    USER_NOTLOGIN_OR_TIMEOUT(2007, "用户未登录或登录超时"),
+    CHANGE_PASSWORD_ERROR(2008, "密码修改失败")
     ;
 
     private int code;
