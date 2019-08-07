@@ -56,6 +56,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.changePassword(id, oldPassword, newPassword);
     }
 
+    /*
+     * @Description: 登录
+     * @Date: 2019/8/6 15:15
+     * @Param: [account, password]
+     * @Return: www.rsyrch.com.resume.pojo.User
+     **/
     public User login(String account, String password) {
         User user = userMapper.userLogin(account, password);
         return user;

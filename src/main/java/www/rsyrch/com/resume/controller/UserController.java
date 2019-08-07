@@ -3,22 +3,28 @@ package www.rsyrch.com.resume.controller;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
 import www.rsyrch.com.resume.pojo.User;
 import www.rsyrch.com.resume.service.UserService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
 import www.rsyrch.com.resume.utils.code.UserCode;
+import www.rsyrch.com.resume.utils.properties.ResumeProperties;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/user")
 @CrossOrigin
+@EnableConfigurationProperties(ResumeProperties.class)
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ResumeProperties resumeProperties;
 
     /*
      * @Description 用户注册
@@ -57,8 +63,8 @@ public class UserController {
         }
         User user = userService.login(account, password);
         if(user != null) {
-            // 登陆成功,用户对象放入session
-            session.setAttribute(UserCode.USER_SESSION.getDesc(), user);
+            // 登陆成功,用户对象放入session,从配置文件获取用户session名
+            session.setAttribute(resumeProperties.getUserSessionName(), user);
             return ResultUtil.success(user.getId());
         }
         else {
@@ -102,7 +108,8 @@ public class UserController {
         if(StringUtils.isBlank(newPassword)) {
             return ResultUtil.error(UserCode.NEW_PASSWORD_NULL.getCode(), UserCode.NEW_PASSWORD_NULL.getDesc());
         }
-        Object object = session.getAttribute(UserCode.USER_SESSION.getDesc());
+        // 获取用户session
+        Object object = session.getAttribute(resumeProperties.getUserSessionName());
         if(object == null) {
             // 用户未登录或登录超时
             return ResultUtil.error(UserCode.USER_NOTLOGIN_OR_TIMEOUT.getCode(), UserCode.USER_NOTLOGIN_OR_TIMEOUT.getDesc());
