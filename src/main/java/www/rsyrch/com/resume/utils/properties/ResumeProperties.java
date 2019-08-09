@@ -17,5 +17,6 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class ResumeProperties {
+    // 用户统一session key
     private String userSessionName;
 }
