@@ -12,7 +12,6 @@ import www.rsyrch.com.resume.utils.Result;
 @RestController
 @RequestMapping(value = "/resume")
 public class ResumeController {
-
     /*
      * @Description: 获取简历信息
      * @Date: 2019/8/9 12:04

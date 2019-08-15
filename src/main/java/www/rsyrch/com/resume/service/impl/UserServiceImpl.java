@@ -6,6 +6,8 @@ import www.rsyrch.com.resume.pojo.User;
 import www.rsyrch.com.resume.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setAccoumtnumber(account);
         user.setPassword(password);
+        user.setCreatetime(new Date());
         int status = 0;
         try{
             status = userMapper.insert(user);

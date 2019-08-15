@@ -1,14 +1,19 @@
+/*
+ * @ClassName: EducationCode
+ * @Description:
+ * @Date: 2019/8/15 15:40
+ **/
+
 package www.rsyrch.com.resume.utils.code;
 
-public enum Code {
+public enum EducationCode {
 
-    GET_MSG_ERROR(1001, "获取消息异常"),
-    ADD_ERROR(1002, "添加失败");
+    EDUCATION_TRAINING_IS_NULL(3001, "学历名为空");
 
     private int code;
     private String desc;
 
-    private Code(int code, String desc) {
+    EducationCode(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -27,13 +32,5 @@ public enum Code {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    @Override
-    public String toString() {
-        return "Code{" +
-                "code=" + code +
-                ", desc='" + desc + '\'' +
-                '}';
     }
 }

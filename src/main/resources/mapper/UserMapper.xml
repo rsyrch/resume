@@ -377,7 +377,7 @@
 
   <update id="changePassword">
     update user
-    set password = #{newPassword}
+    set password = #{newPassword}, updateTime = now()
     where id = #{id} and password = #{oldPassword}
   </update>
 
