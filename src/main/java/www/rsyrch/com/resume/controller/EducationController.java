@@ -41,4 +41,6 @@ public class EducationController {
             return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
         }
     }
+
+
 }
