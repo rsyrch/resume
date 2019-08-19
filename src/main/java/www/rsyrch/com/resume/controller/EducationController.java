@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import www.rsyrch.com.resume.pojo.Educationtraining;
 import www.rsyrch.com.resume.service.EducationService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
@@ -42,5 +43,14 @@ public class EducationController {
         }
     }
 
-
+    /*
+     * @Description: 获取所有学历类型
+     * @Date: 2019/8/19 15:10
+     * @Param: []
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    public Result getEducationtraining() {
+        Educationtraining educationtraining = educationService.getEducationtraining();
+        return ResultUtil.success(educationtraining);
+    }
 }
