@@ -9,4 +9,5 @@ import www.rsyrch.com.resume.pojo.Educationtraining;
 public interface EducationService {
     int addEducationtraining(String educationtrainingName);
     Educationtraining getEducationtraining();
+    int modifyEuucationtrainingById(int id);
 }

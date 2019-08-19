@@ -19,4 +19,12 @@ import org.springframework.stereotype.Component;
 public class ResumeProperties {
     // 用户统一session key
     private String userSessionName;
+
+    public String getUserSessionName() {
+        return userSessionName;
+    }
+
+    public void setUserSessionName(String userSessionName) {
+        this.userSessionName = userSessionName;
+    }
 }

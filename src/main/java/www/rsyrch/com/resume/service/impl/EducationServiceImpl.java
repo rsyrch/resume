@@ -40,4 +40,14 @@ public class EducationServiceImpl implements EducationService {
     public Educationtraining getEducationtraining() {
         return educationtrainingMapper.getAllEducationtraining();
     }
+
+    /*
+     * @Description: 修改学历类型
+     * @Date: 2019/8/19 23:04
+     * @Param: [id]
+     * @Return: int
+     **/
+    public int modifyEuucationtrainingById(int id) {
+        return educationtrainingMapper.modifyEducationtrainingById(id);
+    }
 }

@@ -8,7 +8,8 @@ package www.rsyrch.com.resume.utils.code;
 
 public enum EducationCode {
 
-    EDUCATION_TRAINING_IS_NULL(3001, "学历名为空");
+    EDUCATION_TRAINING_IS_NULL(3001, "学历名为空"),
+    EDUCATION_TRAINING_ID_IS_NULL(3002, "学历id为空");
 
     private int code;
     private String desc;

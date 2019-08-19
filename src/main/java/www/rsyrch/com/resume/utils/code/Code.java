@@ -2,13 +2,15 @@ package www.rsyrch.com.resume.utils.code;
 
 public enum Code {
 
-    GET_MSG_ERROR(1001, "获取消息异常"),
-    ADD_ERROR(1002, "添加失败");
+    MODIFY_ERROR(1003, "修改失败"),
+    ADD_ERROR(1002, "添加失败"),
+    GET_MSG_ERROR(1001, "获取消息异常");
+
 
     private int code;
     private String desc;
 
-    private Code(int code, String desc) {
+    Code(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }

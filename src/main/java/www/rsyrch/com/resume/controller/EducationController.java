@@ -49,8 +49,29 @@ public class EducationController {
      * @Param: []
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
+    @RequestMapping(value = "/getEducationtraining", method = RequestMethod.GET)
     public Result getEducationtraining() {
         Educationtraining educationtraining = educationService.getEducationtraining();
         return ResultUtil.success(educationtraining);
+    }
+
+    /*
+     * @Description: 根据id修改学历类型
+     * @Date: 2019/8/19 23:25
+     * @Param: [id]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    @RequestMapping(value = "/modifyEducationtrainingById", method = RequestMethod.GET)
+    public Result modifyEducationtrainingById(@Param("id") String id) {
+        if(StringUtils.isBlank(id)) {
+            return ResultUtil.error(EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getCode(), EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getDesc());
+        }
+        int status = educationService.modifyEuucationtrainingById(Integer.parseInt(id));
+        if(status >0) {
+            return ResultUtil.success();
+        }
+        else {
+            return ResultUtil.error(Code.MODIFY_ERROR.getCode(), Code.MODIFY_ERROR.getDesc());
+        }
     }
 }

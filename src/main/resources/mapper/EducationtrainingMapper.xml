@@ -212,6 +212,13 @@
   <select id="getAllEducationtraining" resultMap="BaseResultMap">
     select id, educationTrainingName
     from educationTraining
-    where status = 1
+    where status != 3
   </select>
+
+  <update id="modifyEducationtrainingById" parameterType="int">
+    update educationTraining
+    set educationTrainingName = #{id}, updateTime = now()
+    where status = 2
+  </update>
+
 </mapper>

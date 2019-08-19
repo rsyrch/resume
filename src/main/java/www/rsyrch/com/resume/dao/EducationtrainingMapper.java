@@ -29,4 +29,6 @@ public interface EducationtrainingMapper {
     int updateByPrimaryKey(Educationtraining record);
 
     Educationtraining getAllEducationtraining();
+
+    int modifyEducationtrainingById(@Param("id") int id);
 }
