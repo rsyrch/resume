@@ -27,4 +27,6 @@ public interface EducationtrainingMapper {
     int updateByPrimaryKeySelective(Educationtraining record);
 
     int updateByPrimaryKey(Educationtraining record);
+
+    Educationtraining getAllEducationtraining();
 }

@@ -208,4 +208,10 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllEducationtraining" resultMap="BaseResultMap">
+    select id, educationTrainingName
+    from educationTraining
+    where status = 1
+  </select>
 </mapper>
