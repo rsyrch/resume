@@ -2,6 +2,7 @@ package www.rsyrch.com.resume.utils.code;
 
 public enum Code {
 
+    DELETE_ERROR(1004, "删除失败"),
     MODIFY_ERROR(1003, "修改失败"),
     ADD_ERROR(1002, "添加失败"),
     GET_MSG_ERROR(1001, "获取消息异常");

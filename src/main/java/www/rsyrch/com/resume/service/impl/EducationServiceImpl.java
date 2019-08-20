@@ -50,4 +50,14 @@ public class EducationServiceImpl implements EducationService {
     public int modifyEuucationtrainingById(int id) {
         return educationtrainingMapper.modifyEducationtrainingById(id);
     }
+
+    /*
+     * @Description: 根据id删除学历类型
+     * @Date: 2019/8/20 10:52
+     * @Param: [id]
+     * @Return: int
+     **/
+    public int deleteEuucationtrainingById(int id) {
+        return educationtrainingMapper.deleteEuucationtrainingById(id);
+    }
 }

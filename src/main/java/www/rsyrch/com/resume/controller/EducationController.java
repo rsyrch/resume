@@ -74,4 +74,24 @@ public class EducationController {
             return ResultUtil.error(Code.MODIFY_ERROR.getCode(), Code.MODIFY_ERROR.getDesc());
         }
     }
+
+    /*
+     * @Description: 根据id删除学历类型
+     * @Date: 2019/8/20 9:57
+     * @Param: [id]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    @RequestMapping(value = "/deleteEducationtrainingById", method = RequestMethod.GET)
+    public Result deleteEducationtrainingById(@Param("id") String id) {
+        if(StringUtils.isBlank(id)) {
+            return ResultUtil.error(EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getCode(), EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getDesc());
+        }
+        int status = educationService.deleteEuucationtrainingById(Integer.parseInt(id));
+        if(status >0) {
+            return ResultUtil.success();
+        }
+        else {
+            return ResultUtil.error(Code.DELETE_ERROR.getCode(), Code.DELETE_ERROR.getDesc());
+        }
+    }
 }

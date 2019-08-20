@@ -221,4 +221,9 @@
     where status = 2
   </update>
 
+  <delete id="deleteEuucationtrainingById" parameterType="int">
+    delete from educationTraining
+    where id = #{id}
+  </delete>
+
 </mapper>

@@ -31,4 +31,6 @@ public interface EducationtrainingMapper {
     Educationtraining getAllEducationtraining();
 
     int modifyEducationtrainingById(@Param("id") int id);
+
+    int deleteEuucationtrainingById(@Param("id") int id);
 }
