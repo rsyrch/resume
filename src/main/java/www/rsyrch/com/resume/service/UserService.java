@@ -8,4 +8,5 @@ public interface UserService {
     User checkAccoutStatus(String account);
     int changePassword(int id, String oldPassword, String newPassword);
     User login(String account, String password);
+    User getUserInformationById(String id);
 }

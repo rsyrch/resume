@@ -69,4 +69,16 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.userLogin(account, password);
         return user;
     }
+
+    /*
+     * @Description: 根据id获取用户信息
+     * @Date: 2019/8/23 14:54
+     * @Param: [id]
+     * @Return: www.rsyrch.com.resume.pojo.User
+     **/
+    @Override
+    public User getUserInformationById(String id) {
+        User user = userMapper.selectByPrimaryKey(Integer.parseInt(id));
+        return user;
+    }
 }

@@ -124,4 +124,25 @@ public class UserController {
             return ResultUtil.error(UserCode.CHANGE_PASSWORD_ERROR.getCode(), UserCode.CHANGE_PASSWORD_ERROR.getDesc());
         }
     }
+
+    /*
+     * @Description: 根据id获取用户信息
+     * @Date: 2019/8/23 14:46
+     * @Param: [userId]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    @RequestMapping(value = "/userInfromation")
+    public Result getUserInformationById(@Param(value = "userId") String userId) {
+        if(StringUtils.isBlank(userId)) {
+            return ResultUtil.error(UserCode.USER_ID_IS_NULL.getCode(), UserCode.USER_ID_IS_NULL.getDesc());
+        }
+        User user = userService.getUserInformationById(userId);
+        if(user == null) {
+            return ResultUtil.error(UserCode.USER_NOT_EXIST.getCode(), UserCode.USER_NOT_EXIST.getDesc());
+        }
+        else {
+            user.setPassword("");
+        }
+        return ResultUtil.success(user);
+    }
 }

@@ -10,7 +10,9 @@ public enum UserCode {
     OLD_PASSWORD_NULL(2009, "新密码为空"),
     NEW_PASSWORD_NULL(2006,"新密码为空"),
     USER_NOTLOGIN_OR_TIMEOUT(2007, "用户未登录或登录超时"),
-    CHANGE_PASSWORD_ERROR(2008, "密码修改失败");
+    CHANGE_PASSWORD_ERROR(2008, "密码修改失败"),
+    USER_NOT_EXIST(2009, "用户不存在"),
+    USER_ID_IS_NULL(2010, "用户id为空");
 
     private int code;
     private String desc;
