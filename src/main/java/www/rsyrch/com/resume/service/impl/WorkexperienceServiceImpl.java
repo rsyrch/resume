@@ -26,4 +26,17 @@ public class WorkexperienceServiceImpl implements WorkexperienceService {
         int status = workexperienceMapper.insert(workexperience);
         return status;
     }
+
+    /*
+     * @Description: 根据id得到工作经历
+     * @Date: 2019/9/18 1:07
+     * @Param: [id]
+     * @Return: www.rsyrch.com.resume.pojo.Workexperience
+     **/
+    @Override
+    public Workexperience getWorkexperienceById(int id) {
+        return workexperienceMapper.selectByPrimaryKey(id);
+    }
+
+
 }

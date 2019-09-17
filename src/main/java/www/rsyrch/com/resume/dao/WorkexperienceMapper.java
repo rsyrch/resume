@@ -21,7 +21,7 @@ public interface WorkexperienceMapper {
 
     List<Workexperience> selectByExample(WorkexperienceExample example);
 
-    Workexperience selectByPrimaryKey(String id);
+    Workexperience selectByPrimaryKey(int id);
 
     int updateByExampleSelective(@Param("record") Workexperience record, @Param("example") WorkexperienceExample example);
 

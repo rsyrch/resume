@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Workexperience {
-    private String id;
+    private int id;
 
     private String name;
 
@@ -32,12 +32,12 @@ public class Workexperience {
 
     private String sparefield3;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

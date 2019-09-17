@@ -6,6 +6,7 @@
 
 package www.rsyrch.com.resume.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +17,14 @@ import www.rsyrch.com.resume.service.WorkexperienceService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
 import www.rsyrch.com.resume.utils.code.Code;
+import www.rsyrch.com.resume.utils.code.Work;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
 
 @RestController
 @RequestMapping(value = "/work")
@@ -37,7 +40,7 @@ public class WorkexperienceController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/addWork", method = RequestMethod.POST)
-    public Result WorkexperienceService(@RequestParam Map<String, Object> map) throws Exception {
+    public Result addWork(@RequestParam Map<String, Object> map) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Workexperience workexperience = new Workexperience();
         workexperience.setName(map.get("companyName").toString().trim());
@@ -55,6 +58,16 @@ public class WorkexperienceController {
         else {
             return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
         }
+    }
+
+    @RequestMapping(value = "/modifyWork", method = RequestMethod.POST)
+    public Result modifyWork(@RequestParam Map<String, Object> map) {
+        String id = map.get("id").toString().trim();
+        if(StringUtils.isBlank(id)) {
+            return ResultUtil.error(Work.WORK_ID_IS_NULL.getCode(), Work.WORK_ID_IS_NULL.getDesc());
+        }
+
+        return null;
     }
 
 }
