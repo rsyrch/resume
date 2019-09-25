@@ -9,6 +9,7 @@ import www.rsyrch.com.resume.pojo.User;
 import www.rsyrch.com.resume.service.UserService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
+import www.rsyrch.com.resume.utils.code.Code;
 import www.rsyrch.com.resume.utils.code.UserCode;
 import www.rsyrch.com.resume.utils.properties.ResumeProperties;
 import javax.servlet.http.HttpSession;
@@ -39,7 +40,14 @@ public class UserController {
         if(!(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password))) {
             return ResultUtil.error(UserCode.PARAM_EXCEPTION.getCode(), UserCode.PARAM_EXCEPTION.getDesc());
         }
-        int status = userService.register(account, password);
+        int status = 0;
+        try {
+             status = userService.register(account, password);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
+        }
         if(status > 0) {
             return ResultUtil.success();
         }
@@ -61,14 +69,20 @@ public class UserController {
         if(!(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password))) {
             return ResultUtil.error(UserCode.PARAM_EXCEPTION.getCode(), UserCode.PARAM_EXCEPTION.getDesc());
         }
-        User user = userService.login(account, password);
-        if(user != null) {
-            // 登陆成功,用户对象放入session,从配置文件获取用户session名
-            session.setAttribute(resumeProperties.getUserSessionName(), user);
-            return ResultUtil.success(user.getId());
+        try {
+            User user = userService.login(account, password);
+            if(user != null) {
+                // 登陆成功,用户对象放入session,从配置文件获取用户session名
+                session.setAttribute(resumeProperties.getUserSessionName(), user);
+                return ResultUtil.success(user.getId());
+            }
+            else {
+                return ResultUtil.error(UserCode.USER_PASSWORD_ERROR.getCode(), UserCode.USER_PASSWORD_ERROR.getDesc());
+            }
         }
-        else {
-            return ResultUtil.error(UserCode.USER_PASSWORD_ERROR.getCode(), UserCode.USER_PASSWORD_ERROR.getDesc());
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 
@@ -83,12 +97,18 @@ public class UserController {
         if(StringUtils.isBlank(account)) {
             return ResultUtil.error("账号为空");
         }
-        User user = userService.checkAccoutStatus(account);
-        if(user == null) {
-            return ResultUtil.success();
+        try {
+            User user = userService.checkAccoutStatus(account);
+            if(user == null) {
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error("账号已被注册");
+            }
         }
-        else {
-            return ResultUtil.error("账号已被注册");
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 
@@ -115,14 +135,21 @@ public class UserController {
             return ResultUtil.error(UserCode.USER_NOTLOGIN_OR_TIMEOUT.getCode(), UserCode.USER_NOTLOGIN_OR_TIMEOUT.getDesc());
         }
         User user = (User)object;
-        int status = userService.changePassword(user.getId(), oldPassword, newPassword);
-        if(status > 0) {
-            // 密码修改成功
-            return ResultUtil.success();
+        try {
+            int status = userService.changePassword(user.getId(), oldPassword, newPassword);
+            if(status > 0) {
+                // 密码修改成功
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error(UserCode.CHANGE_PASSWORD_ERROR.getCode(), UserCode.CHANGE_PASSWORD_ERROR.getDesc());
+            }
         }
-        else {
-            return ResultUtil.error(UserCode.CHANGE_PASSWORD_ERROR.getCode(), UserCode.CHANGE_PASSWORD_ERROR.getDesc());
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
+
     }
 
     /*
@@ -136,7 +163,14 @@ public class UserController {
         if(StringUtils.isBlank(userId)) {
             return ResultUtil.error(UserCode.USER_ID_IS_NULL.getCode(), UserCode.USER_ID_IS_NULL.getDesc());
         }
-        User user = userService.getUserInformationById(userId);
+        User user = null;
+        try {
+            user = userService.getUserInformationById(userId);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
+        }
         if(user == null) {
             return ResultUtil.error(UserCode.USER_NOT_EXIST.getCode(), UserCode.USER_NOT_EXIST.getDesc());
         }

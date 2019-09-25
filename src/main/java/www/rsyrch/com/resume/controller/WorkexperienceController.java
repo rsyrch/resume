@@ -17,7 +17,7 @@ import www.rsyrch.com.resume.service.WorkexperienceService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
 import www.rsyrch.com.resume.utils.code.Code;
-import www.rsyrch.com.resume.utils.code.Work;
+import www.rsyrch.com.resume.utils.code.WorkCode;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -60,13 +60,55 @@ public class WorkexperienceController {
         }
     }
 
+    /*
+     * @Description: 修改工作经历
+     * @Date: 2019/9/25 0:40
+     * @Param: [map]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
     @RequestMapping(value = "/modifyWork", method = RequestMethod.POST)
-    public Result modifyWork(@RequestParam Map<String, Object> map) {
+    public Result modifyWork(@RequestParam Map<String, Object> map) throws Exception {
         String id = map.get("id").toString().trim();
+        String companyName = map.get("companyName").toString().trim();  // 公司
+        String department = map.get("department").toString().trim();    // 部门
+        String position = map.get("position").toString().trim();    // 职位
+        String salary = map.get("salary").toString().trim();    // 薪资
+        String workContent = map.get("workContent").toString().trim();  // 工作内容
+        String startTime = map.get("startTime").toString().trim();  // 工作开始时间
+        String endTime = map.get("endTime").toString().trim();  // 工作结束时间
+
+
         if(StringUtils.isBlank(id)) {
-            return ResultUtil.error(Work.WORK_ID_IS_NULL.getCode(), Work.WORK_ID_IS_NULL.getDesc());
+            return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());
+        }
+        Workexperience workexperience = workexperienceService.getWorkexperienceById(Integer.parseInt(id));
+        if(workexperience == null) {
+            return ResultUtil.error(WorkCode.WORK_IS_NULL.getCode(), WorkCode.WORK_IS_NULL.getDesc());
         }
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if(StringUtils.isNotBlank(companyName)) {
+            workexperience.setName(companyName);
+        }
+        if(StringUtils.isNotBlank(department)) {
+            workexperience.setDepartment(department);
+        }
+        if(StringUtils.isNotBlank(position)) {
+            workexperience.setPosition(position);
+        }
+        if(StringUtils.isNotBlank(salary)) {
+            workexperience.setSalary(new BigDecimal(salary));
+        }
+        if(StringUtils.isNotBlank(workContent)) {
+            workexperience.setWorkcontent(workContent);
+        }
+        if(StringUtils.isNotBlank(startTime)) {
+            workexperience.setStarttime(dateFormat.parse(startTime));
+        }
+        if(StringUtils.isNotBlank(endTime)) {
+            workexperience.setEndtime(dateFormat.parse(endTime));
+        }
+        workexperience.setUpdatetime(new Date());
         return null;
     }
 
