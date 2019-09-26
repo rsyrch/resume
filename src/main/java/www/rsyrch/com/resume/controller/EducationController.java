@@ -34,12 +34,18 @@ public class EducationController {
         if(StringUtils.isBlank(educationtrainingName)) {
             return ResultUtil.error(EducationCode.EDUCATION_TRAINING_IS_NULL.getCode(), EducationCode.EDUCATION_TRAINING_IS_NULL.getDesc());
         }
-        int status = educationService.addEducationtraining(educationtrainingName);
-        if(status > 0) {
-            return ResultUtil.success();
-        }
-        else {
-            return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
+        int status = 0;
+        try {
+            status = educationService.addEducationtraining(educationtrainingName);
+            if(status > 0) {
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 
@@ -51,8 +57,13 @@ public class EducationController {
      **/
     @RequestMapping(value = "/getEducationtraining", method = RequestMethod.GET)
     public Result getEducationtraining() {
-        Educationtraining educationtraining = educationService.getEducationtraining();
-        return ResultUtil.success(educationtraining);
+        try {
+            Educationtraining educationtraining = educationService.getEducationtraining();
+            return ResultUtil.success(educationtraining);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
+        }
     }
 
     /*
@@ -66,12 +77,18 @@ public class EducationController {
         if(StringUtils.isBlank(id)) {
             return ResultUtil.error(EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getCode(), EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getDesc());
         }
-        int status = educationService.modifyEuucationtrainingById(Integer.parseInt(id));
-        if(status >0) {
-            return ResultUtil.success();
-        }
-        else {
-            return ResultUtil.error(Code.MODIFY_ERROR.getCode(), Code.MODIFY_ERROR.getDesc());
+        int status = 0;
+        try {
+            status = educationService.modifyEuucationtrainingById(Integer.parseInt(id));
+            if(status >0) {
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error(Code.MODIFY_ERROR.getCode(), Code.MODIFY_ERROR.getDesc());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 
@@ -86,12 +103,18 @@ public class EducationController {
         if(StringUtils.isBlank(id)) {
             return ResultUtil.error(EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getCode(), EducationCode.EDUCATION_TRAINING_ID_IS_NULL.getDesc());
         }
-        int status = educationService.deleteEuucationtrainingById(Integer.parseInt(id));
-        if(status >0) {
-            return ResultUtil.success();
-        }
-        else {
-            return ResultUtil.error(Code.DELETE_ERROR.getCode(), Code.DELETE_ERROR.getDesc());
+        int status = 0;
+        try {
+            status = educationService.deleteEuucationtrainingById(Integer.parseInt(id));
+            if(status >0) {
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error(Code.DELETE_ERROR.getCode(), Code.DELETE_ERROR.getDesc());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 }

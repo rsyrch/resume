@@ -1,7 +1,7 @@
 package www.rsyrch.com.resume.utils.code;
 
 public enum WorkCode {
-
+    UPDATE_ERROR(3003, "更新工作经历失败"),
     WORK_ID_IS_NULL(3001, "工作经历id为空"),
     WORK_IS_NULL(3002, "工作经历不存在");
 

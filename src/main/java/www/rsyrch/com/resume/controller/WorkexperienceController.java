@@ -40,23 +40,28 @@ public class WorkexperienceController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/addWork", method = RequestMethod.POST)
-    public Result addWork(@RequestParam Map<String, Object> map) throws Exception {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Workexperience workexperience = new Workexperience();
-        workexperience.setName(map.get("companyName").toString().trim());
-        workexperience.setDepartment(map.get("department").toString().trim());
-        workexperience.setPosition(map.get("position").toString().trim());
-        workexperience.setSalary(new BigDecimal(map.get("salary").toString().trim()));
-        workexperience.setWorkcontent(map.get("workContent").toString());
-        workexperience.setStarttime(dateFormat.parse(map.get("startTime").toString().trim()));
-        workexperience.setEndtime(dateFormat.parse(map.get("endTime").toString().trim()));
-        workexperience.setCreatetime(new Date());
-        int status = workexperienceService.addWorkexperience(workexperience);
-        if(status > 0) {
-            return ResultUtil.success();
-        }
-        else {
-            return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
+    public Result addWork(@RequestParam Map<String, Object> map) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Workexperience workexperience = new Workexperience();
+            workexperience.setName(map.get("companyName").toString().trim());
+            workexperience.setDepartment(map.get("department").toString().trim());
+            workexperience.setPosition(map.get("position").toString().trim());
+            workexperience.setSalary(new BigDecimal(map.get("salary").toString().trim()));
+            workexperience.setWorkcontent(map.get("workContent").toString());
+            workexperience.setStarttime(dateFormat.parse(map.get("startTime").toString().trim()));
+            workexperience.setEndtime(dateFormat.parse(map.get("endTime").toString().trim()));
+            workexperience.setCreatetime(new Date());
+            int status = workexperienceService.addWorkexperience(workexperience);
+            if(status > 0) {
+                return ResultUtil.success();
+            }
+            else {
+                return ResultUtil.error(Code.ADD_ERROR.getCode(), Code.ADD_ERROR.getDesc());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
 
@@ -67,7 +72,7 @@ public class WorkexperienceController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/modifyWork", method = RequestMethod.POST)
-    public Result modifyWork(@RequestParam Map<String, Object> map) throws Exception {
+    public Result modifyWork(@RequestParam Map<String, Object> map) {
         String id = map.get("id").toString().trim();
         String companyName = map.get("companyName").toString().trim();  // 公司
         String department = map.get("department").toString().trim();    // 部门
@@ -77,39 +82,48 @@ public class WorkexperienceController {
         String startTime = map.get("startTime").toString().trim();  // 工作开始时间
         String endTime = map.get("endTime").toString().trim();  // 工作结束时间
 
+        try {
 
-        if(StringUtils.isBlank(id)) {
-            return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());
-        }
-        Workexperience workexperience = workexperienceService.getWorkexperienceById(Integer.parseInt(id));
-        if(workexperience == null) {
-            return ResultUtil.error(WorkCode.WORK_IS_NULL.getCode(), WorkCode.WORK_IS_NULL.getDesc());
-        }
+            if(StringUtils.isBlank(id)) {
+                return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());
+            }
+            Workexperience workexperience = workexperienceService.getWorkexperienceById(Integer.parseInt(id));
+            if(workexperience == null) {
+                return ResultUtil.error(WorkCode.WORK_IS_NULL.getCode(), WorkCode.WORK_IS_NULL.getDesc());
+            }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if(StringUtils.isNotBlank(companyName)) {
-            workexperience.setName(companyName);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if(StringUtils.isNotBlank(companyName)) {
+                workexperience.setName(companyName);
+            }
+            if(StringUtils.isNotBlank(department)) {
+                workexperience.setDepartment(department);
+            }
+            if(StringUtils.isNotBlank(position)) {
+                workexperience.setPosition(position);
+            }
+            if(StringUtils.isNotBlank(salary)) {
+                workexperience.setSalary(new BigDecimal(salary));
+            }
+            if(StringUtils.isNotBlank(workContent)) {
+                workexperience.setWorkcontent(workContent);
+            }
+            if(StringUtils.isNotBlank(startTime)) {
+                workexperience.setStarttime(dateFormat.parse(startTime));
+            }
+            if(StringUtils.isNotBlank(endTime)) {
+                workexperience.setEndtime(dateFormat.parse(endTime));
+            }
+            workexperience.setUpdatetime(new Date());
+            int status = workexperienceService.updateWorkexperience(workexperience);
+            if(status <= 0) {
+                return ResultUtil.error(WorkCode.UPDATE_ERROR.getCode(), WorkCode.UPDATE_ERROR.getDesc());
+            }
+            return ResultUtil.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
-        if(StringUtils.isNotBlank(department)) {
-            workexperience.setDepartment(department);
-        }
-        if(StringUtils.isNotBlank(position)) {
-            workexperience.setPosition(position);
-        }
-        if(StringUtils.isNotBlank(salary)) {
-            workexperience.setSalary(new BigDecimal(salary));
-        }
-        if(StringUtils.isNotBlank(workContent)) {
-            workexperience.setWorkcontent(workContent);
-        }
-        if(StringUtils.isNotBlank(startTime)) {
-            workexperience.setStarttime(dateFormat.parse(startTime));
-        }
-        if(StringUtils.isNotBlank(endTime)) {
-            workexperience.setEndtime(dateFormat.parse(endTime));
-        }
-        workexperience.setUpdatetime(new Date());
-        return null;
     }
 
 }

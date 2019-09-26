@@ -43,8 +43,7 @@ public class UserController {
         int status = 0;
         try {
              status = userService.register(account, password);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
@@ -79,8 +78,7 @@ public class UserController {
             else {
                 return ResultUtil.error(UserCode.USER_PASSWORD_ERROR.getCode(), UserCode.USER_PASSWORD_ERROR.getDesc());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
@@ -105,8 +103,7 @@ public class UserController {
             else {
                 return ResultUtil.error("账号已被注册");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
@@ -144,8 +141,7 @@ public class UserController {
             else {
                 return ResultUtil.error(UserCode.CHANGE_PASSWORD_ERROR.getCode(), UserCode.CHANGE_PASSWORD_ERROR.getDesc());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
@@ -166,8 +162,7 @@ public class UserController {
         User user = null;
         try {
             user = userService.getUserInformationById(userId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }

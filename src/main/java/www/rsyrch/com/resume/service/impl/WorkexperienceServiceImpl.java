@@ -38,5 +38,14 @@ public class WorkexperienceServiceImpl implements WorkexperienceService {
         return workexperienceMapper.selectByPrimaryKey(id);
     }
 
-
+    /*
+     * @Description: 更新工作经历
+     * @Date: 2019/9/26 22:05
+     * @Param: [workexperience]
+     * @Return: int
+     **/
+    @Override
+    public int updateWorkexperience(Workexperience workexperience) {
+        return workexperienceMapper.updateByPrimaryKey(workexperience);
+    }
 }
