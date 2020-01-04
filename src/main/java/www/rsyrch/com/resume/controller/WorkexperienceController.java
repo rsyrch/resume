@@ -7,6 +7,7 @@
 package www.rsyrch.com.resume.controller;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -125,5 +126,19 @@ public class WorkexperienceController {
             return ResultUtil.error(Code.PROGRAM_ERROR.getCode(), Code.PROGRAM_ERROR.getDesc());
         }
     }
+
+    /*
+     * @Description:
+     * @Date: 2019/11/6 0:16
+     * @Param: [id]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    public Result deleteWork(@Param(value = "id") String id) {
+        if(StringUtils.isNotBlank(id)) {
+            return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());
+        }
+        return new Result();
+    }
+
 
 }
