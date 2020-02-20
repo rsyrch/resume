@@ -30,4 +30,7 @@ public interface WorkexperienceMapper {
     int updateByPrimaryKeySelective(Workexperience record);
 
     int updateByPrimaryKey(Workexperience record);
+
+    // 更改删除状态
+    int updateWorkexperienceDeleteStatusById(@Param("id") int id);
 }

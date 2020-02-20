@@ -128,7 +128,7 @@ public class WorkexperienceController {
     }
 
     /*
-     * @Description:
+     * @Description: 删除工作经历
      * @Date: 2019/11/6 0:16
      * @Param: [id]
      * @Return: www.rsyrch.com.resume.utils.Result
@@ -137,7 +137,17 @@ public class WorkexperienceController {
         if(StringUtils.isNotBlank(id)) {
             return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());
         }
-        return new Result();
+        try {
+            int status = workexperienceService.deleteWorkexperience(Integer.parseInt(id));
+            if(status > 0) {
+                return ResultUtil.success();
+            }
+            return ResultUtil.error(WorkCode.DELETE_WORK_ERROR.getCode(), WorkCode.DELETE_WORK_ERROR.getDesc());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(Code.DELETE_ERROR.getCode(), Code.DELETE_ERROR.getDesc());
+        }
     }
 
 

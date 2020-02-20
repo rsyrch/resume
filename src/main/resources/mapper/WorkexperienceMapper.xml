@@ -350,4 +350,10 @@
       spareField3 = #{sparefield3,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateWorkexperienceDeleteStatusById" parameterType="int">
+    update workexperience
+    set status = 3
+    where id = #{id}
+  </update>
 </mapper>
