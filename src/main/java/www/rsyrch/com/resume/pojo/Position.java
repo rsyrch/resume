@@ -17,7 +17,7 @@ public class Position {
 
     private Date updatetime;
 
-    private String sparefield1;
+    private Integer distance;
 
     private String sparefield2;
 
@@ -79,12 +79,12 @@ public class Position {
         this.updatetime = updatetime;
     }
 
-    public String getSparefield1() {
-        return sparefield1;
+    public Integer getDistance() {
+        return distance;
     }
 
-    public void setSparefield1(String sparefield1) {
-        this.sparefield1 = sparefield1 == null ? null : sparefield1.trim();
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
     public String getSparefield2() {
