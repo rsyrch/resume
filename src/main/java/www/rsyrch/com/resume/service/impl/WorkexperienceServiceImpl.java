@@ -6,10 +6,12 @@
 package www.rsyrch.com.resume.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import www.rsyrch.com.resume.dao.WorkexperienceMapper;
 import www.rsyrch.com.resume.pojo.Workexperience;
 import www.rsyrch.com.resume.service.WorkexperienceService;
 
+@Service
 public class WorkexperienceServiceImpl implements WorkexperienceService {
 
     @Autowired

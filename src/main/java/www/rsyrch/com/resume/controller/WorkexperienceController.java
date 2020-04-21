@@ -133,6 +133,7 @@ public class WorkexperienceController {
      * @Param: [id]
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
+    @RequestMapping(value = "/deleteWork", method = RequestMethod.GET)
     public Result deleteWork(@Param(value = "id") String id) {
         if(StringUtils.isNotBlank(id)) {
             return ResultUtil.error(WorkCode.WORK_ID_IS_NULL.getCode(), WorkCode.WORK_ID_IS_NULL.getDesc());

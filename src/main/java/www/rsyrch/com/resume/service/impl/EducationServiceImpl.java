@@ -6,11 +6,13 @@
 
 package www.rsyrch.com.resume.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import www.rsyrch.com.resume.dao.EducationtrainingMapper;
 import www.rsyrch.com.resume.pojo.Educationtraining;
 import www.rsyrch.com.resume.service.EducationService;
 import java.util.Date;
 
+@Service
 public class EducationServiceImpl implements EducationService {
 
     @Autowired

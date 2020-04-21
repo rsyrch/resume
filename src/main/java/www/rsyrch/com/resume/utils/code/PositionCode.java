@@ -1,20 +1,12 @@
-/*
- * @ClassName: EducationCode
- * @Description:
- * @Date: 2019/8/15 15:40
- **/
-
 package www.rsyrch.com.resume.utils.code;
 
-public enum EducationCode {
+public enum PositionCode {
+    ADD_FAILURE(5002, "职业添加失败"),
+    NAME_ISNULL(5001, "职业名为空");
+    int code;
+    String desc;
 
-    EDUCATION_TRAINING_IS_NULL(4001, "学历名为空"),
-    EDUCATION_TRAINING_ID_IS_NULL(4002, "学历id为空");
-
-    private int code;
-    private String desc;
-
-    EducationCode(int code, String desc) {
+    PositionCode(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -34,4 +26,5 @@ public enum EducationCode {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 }

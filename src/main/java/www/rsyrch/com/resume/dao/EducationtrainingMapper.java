@@ -1,10 +1,12 @@
 package www.rsyrch.com.resume.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import www.rsyrch.com.resume.pojo.Educationtraining;
 import www.rsyrch.com.resume.pojo.EducationtrainingExample;
 import java.util.List;
 
+@Mapper
 public interface EducationtrainingMapper {
     int countByExample(EducationtrainingExample example);
 
