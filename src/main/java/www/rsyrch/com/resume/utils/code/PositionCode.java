@@ -1,8 +1,9 @@
 package www.rsyrch.com.resume.utils.code;
 
 public enum PositionCode {
+    DISTANCE_IS_NULL(5003, "深度未设置"),
     ADD_FAILURE(5002, "职业添加失败"),
-    NAME_ISNULL(5001, "职业名为空");
+    NAME_IS_NULL(5001, "职业名为空");
     int code;
     String desc;
 

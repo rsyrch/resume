@@ -14,12 +14,14 @@ public class PositionServiceImpl implements PositionService {
     private PositionMapper positionMapper;
 
     @Override
-    public int addPosition(int id, String name) {
+    public int addPosition(int id, String name, int distance) {
         Position position = new Position();
         if(id != 0) {
-            position.setFatherid(id);
+            position.setFatherid(id);   // 父级职业ID
         }
-        position.setName(name);
+        position.setName(name); // 职业名
+        position.setStatus(1);  // 新增状态默认是1
+        position.setDistance(distance); // 职业节点的深度
         position.setCreatetime(new Date());
         int status = positionMapper.insert(position);
         return status;

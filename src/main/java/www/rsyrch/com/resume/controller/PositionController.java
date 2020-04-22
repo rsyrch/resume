@@ -7,10 +7,8 @@ package www.rsyrch.com.resume.controller;/*
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import www.rsyrch.com.resume.pojo.Position;
 import www.rsyrch.com.resume.service.PositionService;
 import www.rsyrch.com.resume.utils.Result;
 import www.rsyrch.com.resume.utils.ResultUtil;
@@ -35,7 +33,6 @@ public class PositionController  {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     public Result getAllPosition() {
-
         return ResultUtil.success();
     }
 
@@ -47,21 +44,26 @@ public class PositionController  {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/addPosition", method = RequestMethod.GET)
-    public Result addPosition(@Param(value = "fatherId") String fatherId, @Param(value = "positionName") String positionName) {
+    public Result addPosition(@Param(value = "fatherId") String fatherId, @Param(value = "positionName") String positionName,
+                              @Param(value = "distance" ) String distance)
+    {
         int superiorPosition = 0;   // 上级ID
         if(StringUtils.isNotBlank(fatherId)) {
             superiorPosition = Integer.parseInt(fatherId);
         }
+        if (StringUtils.isBlank(distance)) {
+            return ResultUtil.error(PositionCode.DISTANCE_IS_NULL.getCode(), PositionCode.DISTANCE_IS_NULL.getDesc());
+        }
         if(StringUtils.isBlank(positionName)) {
-            return ResultUtil.error(PositionCode.NAME_ISNULL.getCode(), PositionCode.NAME_ISNULL.getDesc());
+            return ResultUtil.error(PositionCode.NAME_IS_NULL.getCode(), PositionCode.NAME_IS_NULL.getDesc());
         }
         try {
-            int status = positionService.addPosition(superiorPosition, positionName);
+            int status = positionService.addPosition(superiorPosition, positionName, Integer.parseInt(distance));
             if(status > 0) {
                 return ResultUtil.success();
             }
             else {
-                return ResultUtil.error(PositionCode.ADD_FAILURE.getCode(), PositionCode.NAME_ISNULL.getDesc());
+                return ResultUtil.error(PositionCode.ADD_FAILURE.getCode(), PositionCode.NAME_IS_NULL.getDesc());
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -69,9 +71,10 @@ public class PositionController  {
         }
     }
 
-    public Result updatePosition(@RequestParam Map<String, String> map) {
-        String positionId = map.get("positionId");
-        return null;
+    @RequestMapping(value = "/updatePosition", method = RequestMethod.POST)
+    public Result updatePosition(@RequestBody Map<String, String> map) {
+        System.out.println(map.get("positionId"));
+        return ResultUtil.success();
     }
 
 }
