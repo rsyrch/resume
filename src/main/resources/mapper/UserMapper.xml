@@ -371,7 +371,7 @@
   <select id="selectUserByAccount" parameterType="string" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
-    for user
+    from user
     where accoumtnumber = #{account}
   </select>
 
@@ -384,7 +384,7 @@
   <select id="userLogin" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
-    for user
+    from user
     where account = #{account} and password = #{password}
   </select>
 </mapper>

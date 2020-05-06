@@ -51,6 +51,9 @@ public class UserController {
             return ResultUtil.success();
         }
         else {
+            if(status == -1) {
+                return ResultUtil.error(UserCode.ACCOUNT_EXIST.getCode(), UserCode.ACCOUNT_EXIST.getDesc());
+            }
             return ResultUtil.error(UserCode.ADD_UER_ERROR.getCode(), UserCode.ADD_UER_ERROR.getDesc());
         }
     }

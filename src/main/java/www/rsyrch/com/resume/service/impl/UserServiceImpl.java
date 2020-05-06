@@ -5,7 +5,6 @@ import www.rsyrch.com.resume.dao.UserMapper;
 import www.rsyrch.com.resume.pojo.User;
 import www.rsyrch.com.resume.service.UserService;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service
@@ -28,7 +27,14 @@ public class UserServiceImpl implements UserService {
         user.setCreatetime(new Date());
         int status = 0;
         try{
-            status = userMapper.insert(user);
+            // 检查用户是否注册
+            User getUser = userMapper.selectUserByAccount(account);
+            if(getUser == null) {
+                status = userMapper.insert(user);
+            }
+            else {
+                status = -1;
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
