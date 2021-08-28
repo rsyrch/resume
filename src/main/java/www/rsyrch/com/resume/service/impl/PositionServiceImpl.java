@@ -23,7 +23,6 @@ public class PositionServiceImpl implements PositionService {
         position.setStatus(1);  // 新增状态默认是1
         position.setDistance(distance); // 职业节点的深度
         position.setCreatetime(new Date());
-        int status = positionMapper.insert(position);
-        return status;
+        return positionMapper.insert(position);
     }
 }

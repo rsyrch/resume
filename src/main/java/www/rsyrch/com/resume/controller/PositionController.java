@@ -24,15 +24,14 @@ public class PositionController  {
     @Autowired
     private PositionService positionService;
 
-    @RequestMapping(value = "/getAllPosition", method = RequestMethod.GET)
     /*
-     * @Description: 
+     * @Description:
      * @Date: 2020/4/15 17:14
      * @Param: []
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
+    @RequestMapping(value = "/getAllPosition", method = RequestMethod.GET)
     public Result getAllPosition() {
-
         return ResultUtil.success();
     }
 
@@ -77,6 +76,21 @@ public class PositionController  {
      **/
     @RequestMapping(value = "/updatePosition", method = RequestMethod.POST)
     public Result updatePosition(@RequestBody Map<String, String> map) {
+        int positionId;
+        if(StringUtils.isNotBlank(map.get("positionId"))) {
+            positionId = Integer.parseInt(map.get("positionId"));
+        }
+        return ResultUtil.success();
+    }
+
+    /*
+     * @Description: 删除职业
+     * @Date: 2021/8/2 23:59
+     * @Param:  [map]
+     * @Return: www.rsyrch.com.resume.utils.Result
+     **/
+    @RequestMapping(value = "/deletePosition", method = RequestMethod.POST)
+    public Result deletePosition(@RequestBody Map<String, String> map) {
         return ResultUtil.success();
     }
 
