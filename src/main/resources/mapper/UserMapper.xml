@@ -385,7 +385,7 @@
     select
     <include refid="Base_Column_List"></include>
     from user
-    where account = #{account} and password = #{password}
+    where accoumtnumber = #{account} and password = #{password}
   </select>
 </mapper>
 

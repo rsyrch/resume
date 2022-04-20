@@ -1,5 +1,6 @@
 package www.rsyrch.com.resume.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import www.rsyrch.com.resume.utils.code.Code;
 import www.rsyrch.com.resume.utils.code.UserCode;
 import www.rsyrch.com.resume.utils.properties.ResumeProperties;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -65,7 +67,7 @@ public class UserController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result login(@RequestParam Map<String, Object> paramMap, HttpSession session) {
+    public Result login(@RequestBody Map<String, Object> paramMap, HttpSession session) {
         String account = paramMap.get("account").toString();
         String password = paramMap.get("password").toString();
         if(!(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password))) {
@@ -75,7 +77,7 @@ public class UserController {
             User user = userService.login(account, password);
             if(user != null) {
                 // 登陆成功,用户对象放入session,从配置文件获取用户session名
-                session.setAttribute(resumeProperties.getUserSessionName(), user);
+                // session.setAttribute(resumeProperties.getUserSessionName(), user);
                 return ResultUtil.success(user.getId());
             }
             else {
@@ -157,8 +159,9 @@ public class UserController {
      * @Param: [userId]
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
-    @RequestMapping(value = "/userInfromation")
-    public Result getUserInformationById(@Param(value = "userId") String userId) {
+    @RequestMapping(value = "/userInfromation", method = RequestMethod.POST)
+    public Result getUserInformationById(@RequestBody Map<String, Object> paramMap) {
+        String userId = paramMap.get("userId").toString();
         if(StringUtils.isBlank(userId)) {
             return ResultUtil.error(UserCode.USER_ID_IS_NULL.getCode(), UserCode.USER_ID_IS_NULL.getDesc());
         }
@@ -177,4 +180,10 @@ public class UserController {
         }
         return ResultUtil.success(user);
     }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public void test(@RequestBody HashMap<String, String> object) {
+        System.out.println("-----------------------" + object);
+    }
+
 }
