@@ -1,8 +1,6 @@
 package www.rsyrch.com.resume.controller;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +12,6 @@ import www.rsyrch.com.resume.utils.code.Code;
 import www.rsyrch.com.resume.utils.code.UserCode;
 import www.rsyrch.com.resume.utils.properties.ResumeProperties;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -95,8 +92,9 @@ public class UserController {
      * @Param: [accountStatus]
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
-    @RequestMapping(value = "/checkAccount", method = RequestMethod.GET)
-    public Result checkAccount(@Param(value = "account")String account) {
+    @RequestMapping(value = "/checkAccount", method = RequestMethod.POST)
+    public Result checkAccount(@RequestBody Map<String, Object> paramMap) {
+        String account = paramMap.get("account").toString();
         if(StringUtils.isBlank(account)) {
             return ResultUtil.error("账号为空");
         }
@@ -121,7 +119,7 @@ public class UserController {
      * @Return: www.rsyrch.com.resume.utils.Result
      **/
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public Result changePassword(@RequestParam Map<String, Object> paramMap, HttpSession session) {
+    public Result changePassword(@RequestBody Map<String, Object> paramMap, HttpSession session) {
         String oldPassword = paramMap.get("oldPassword").toString();
         String newPassword = paramMap.get("newPassword").toString();
         if(StringUtils.isBlank(oldPassword)) {
@@ -180,10 +178,4 @@ public class UserController {
         }
         return ResultUtil.success(user);
     }
-
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public void test(@RequestBody HashMap<String, String> object) {
-        System.out.println("-----------------------" + object);
-    }
-
 }
