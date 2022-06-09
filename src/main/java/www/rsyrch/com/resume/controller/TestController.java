@@ -15,12 +15,13 @@ import www.rsyrch.com.resume.utils.ResultUtil;
 @CrossOrigin
 public class TestController {
 
-    // 模拟数据
+
     private static List<Car> cars = new ArrayList<Car>();
     static{
         cars.add(new Car(1,"奔驰AMG-g650", new Date().toString()));
         cars.add(new Car(2,"法拉利LaFa", new Date().toString()));
         cars.add(new Car(3,"保时捷918", new Date().toString()));
+        cars.add(new Car(4,"BMW M4", new Date().toString()));
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
